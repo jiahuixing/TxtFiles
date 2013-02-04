@@ -1,0 +1,18 @@
+#!/usr/bin/expect  -f 
+set cdcmd "/home/jiahuixing/tools/adt-bundle-linux/sdk/platform-tools"
+set killadbcmd "./adb kill-server"
+set startadbcmd "./adb start-server"
+set supasswd 111111
+spawn su -
+expect ":"
+send "$supasswd\r"
+expect "#"
+#send "begin to go to adb path\r"
+send "cd $cdcmd\r"
+#send "begin to kill adb server\r"
+send "$killadbcmd\r"
+#send "begin to restart adb server\r"
+send "$startadbcmd\r"
+#send "finish and exit su mode\r"
+send "exit\r"
+interact 

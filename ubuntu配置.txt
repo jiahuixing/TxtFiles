@@ -1,0 +1,246 @@
+﻿
+JDK:
+1下载jdk
+                http://www.oracle.com/technetwork/java/javase/downloads/index.html
+                下载jdk-6u14-linux-i586.bin"
+2解压文件
+                chmod u+x jdk-6u14-linux-i586.bin
+                sudo ./jdk-6u14-linux-i586.bin
+3配置环境变量
+                sudo gedit ~/.bashrc 
+                #set java environment
+                JAVA_HOME=/home/liyouliang/develop/jdk1.6.0_14
+                export JRE_HOME=/home/liyouliang/develop/jdk1.6.0_14/jre
+                export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+                export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+4 保存后，同步更新
+                source ~/.bashrc
+5Help
+                http://forum.ubuntu.org.cn/viewtopic.php?t=183803
+
+SDK:
+1下载sdk for linux
+                http://developer.android.com/sdk/index.html
+2解压缩，并更新
+				sudo apt-get install ia32-libs
+                cd ~/android-sdk-linux/tools 2 ./andirod
+3配置环境变量
+                sudo gedit ~/.bashrc
+                #set path for android sdk tools
+                export PATH=$PATH:~/android-sdk-linux/tools/
+                export PATH=$PATH:~/android-sdk-linux/platform-tools/
+4保存后，同步更新
+                source ~/.bashrc
+5关闭adb服务，切换到root，重启adb服务，离开root
+                adb kill-server
+                sudo su
+                /home/m/android-sdk-linux/platform-tools/adb start-server
+                exit
+6Help
+                http://hi.baidu.com/juicewb/item/40d96b20b03b24132b0f1c90
+
+USB:
+1查看usb设备记录
+                lsusb
+2添加usb设备到配置文件然后在/etc/udev/rules.d/下创建一个配置文件: 51-android.rules
+                sudo vim /etc/udev/rules.d/50-android.rules
+3 文件里添加如下配置参数:
+                SUBSYSTEM==""usb"", SYSFS{""High Tech Computer Corp.""}==""0bb4"", MODE=""0666""
+4               sudo chmod a+rx /etc/udev/rules.d/50-android.rules
+5               sudo /etc/init.d/udev restart
+6               sudo adb kill-server
+7               sudo adb devices
+
+Firefox:
+1Download
+                http://www.mozilla.org/en-US/firefox/all.html
+2Extract
+                cd ~/Downloads/
+                tar xjf firefox-17.0.tar.bz2
+                Move to /opt"sudo rm -r /opt/firefox
+                sudo mv firefox /opt/firefox17
+4Set up symbolic links
+                “Backup” the old Firefox launcher: sudo mv /usr/bin/firefox /usr/bin/firefox-old
+                Create a symbolic link pointing to the new Firefox version: sudo ln -s /opt/firefox17/firefox /usr/bin/firefox"
+
+
+Python:
+下载源代码
+                http://www.python.org/ftp/python/2.5.2/Python-2.5.2.tar.bz2
+安装
+                $ tar –jxvf Python-2.5.2.tar.bz2
+                $ cd Python-2.5.2
+                $ ./configure
+                $ make
+                $ sudo make install
+
+快捷方式：
+1.先在桌面上随便建一个空白文档，内容为：
+[Desktop Entry]
+Name=Eclipse
+Comment=Eclipse IDE
+Exec=/opt/eclipse/eclipse
+Icon=/opt/eclipse/icon.xpm
+Terminal=false
+Type=Application
+Categories=Application;Development;
+
+[Desktop Entry]
+Name=Sublime
+Comment=Sublime
+Exec=/home/jiahuixing/tools/"Sublime Text 2"/
+Icon=/home/jiahuixing/tools/"Sublime Text 2"/Icon/256x256
+Terminal=false
+Type=Application
+Categories=Application;Development;
+
+2.名字改为 name.desktop(name就是你想取的名字)
+3.然后右键属性就可以改图标和命令了，最好在权限里面也修改下允许执行，然后把这个文件放到你想放的地方，执行一下，在侧栏锁定，就ok了，既有图标，还可以执行！
+                $ cd <eclipse dir>
+                $ ln -sf $JRE_HOME jre
+目的是在eclipse安装目录下建立一个名称为jre的链接，将其指向java安装目录下的jre目录。
+
+Pydev:
+http://crazycrab.sinaapp.com/archives/198
+Pydev - http://pydev.org/updates/
+
+打开Eclipse，在工具栏上选择Help->Install New Software
+弹出的对话框中，我们点击“Add”按钮，弹出如图2所示的对话框。在对话框中，Name项我们随便填个名
+    例如pydev；在Location中我们填写http://www.fabioz.com/pydev/updates，最后点击“OK”。
+当Eclipse重新启动后，我们需要配置一下pydev插件，让其可以找到本地安装的python。我们选择window->Preferences
+在弹出的对话框的左侧，我们找到Pydev->Interpreter – Python，再在右侧的窗口上点击“New”按钮，在弹出的“Select Interpreter”
+对话框中配置好python的安装目录，选择“OK”。Eclipse会自动将python安装目录中的内容导入
+在一个pydev的空项目建立完毕了。但是在新建py文件前，我们需要在空项目里新建一个包，这里类似与java的创建包的过程。
+在“”中找到我们的项目，右键单击“src”文件夹，新建一个pydev包
+这样的话，在pydev包中会自动创建一个__init__.py文件，我们现在可以在里面写python代码了。写个简单点的，
+打印“Hello,Python!”（print “Hello,Python!”）
+
+SVN:
+$ sudo apt-get install subversion
+$ sudo apt-get install libapache2-svn
+svn://10.237.2.56/trunk/user/jiahuixing
+
+
+PHP+Mysql+Nginx:
+http://wenku.baidu.com/view/d764d6bf1a37f111f1855b0a.html
+http://www.cuitu.net/content/ubuntu-1204-lts-xia-zhuang-nginx-php5-php-fpm-mysql
+1 以root身份登录
+                sudo su
+2 安装 MySQL 5
+                apt-get install mysql-server mysql-client
+3 安装 Nginx
+                apt-get install nginx
+4 开启 nginx
+                /etc/init.d/nginx start
+5 安装 PHP5
+                apt-get install php5-fpm
+6 配置 nginx
+                vim /etc/nginx/nginx.conf
+                code：
+                worker_processes  4;
+                keepalive_timeout   2;
+                vim /etc/nginx/sites-available/default
+                code：
+                [...]
+server {
+	listen   80; ## listen for ipv4; this line is default and implied
+	listen   [::]:80 default ipv6only=on; ## listen for ipv6
+	root /usr/share/nginx/www;
+	index index.php index.html index.htm;
+	# Make site accessible from http://localhost/
+	server_name _;
+	location / {
+			# First attempt to serve request as file, then
+			# as directory, then fall back to index.html
+			try_files $uri $uri/ /index.html;
+	}
+	location /doc {
+			root /usr/share;
+			autoindex on;
+			allow 127.0.0.1;
+			deny all;
+	}
+	#error_page 404 /404.html;
+	# redirect server error pages to the static page /50x.html
+	#
+	error_page 500 502 503 504 /50x.html;
+	location = /50x.html {
+			root /usr/share/nginx/www;
+	}
+	# proxy the PHP scripts to Apache listening on 127.0.0.1:80
+	#
+	#location ~ \.php$ {
+	#       proxy_pass http://127.0.0.1;
+	#}
+	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+	#
+	location ~ \.php$ {
+			try_files $uri =404;
+			fastcgi_pass 127.0.0.1:9000;
+			fastcgi_index index.php;
+			include fastcgi_params;
+	}
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	location ~ /\.ht {
+			deny all;
+	}
+}
+                [...]
+7 重新加载ngnix
+                /etc/init.d/nginx reload
+8 探测
+                 vim /usr/share/nginx/www/info.php
+                 code:
+<?php
+phpinfo();
+?>
+
+7 PHP
+                apt-cache search php5
+                apt-get install php5-mysql php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+8 重启php
+                /etc/init.d/php5-fpm restart
+9 Making PHP-FPM Use A Unix Socket
+                vim /etc/php5/fpm/pool.d/www.conf
+                [...]
+                ;listen = 127.0.0.1:9000
+                listen = /tmp/php5-fpm.sock
+                [...]
+                
+                /etc/init.d/php5-fpm reload
+                vim /etc/nginx/sites-available/default
+                [...]
+location ~ \.php$ {
+		try_files $uri =404;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/tmp/php5-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi_params;
+}
+                [...]
+                
+                /etc/init.d/nginx reload
+			sudo apt-get install expect
+Eclipse+ADT:
+1 出现问题 Cannot complete the install because one or more required items could not be found 
+                http://download.eclipse.org/tools/cdt/releases/juno
+
+UIautomator:
+1 Create a new Java project in Eclipse, and give your project a name that is relevant to the tests you’re about to create (for example, "MyAppNameTests"). 
+In the project, you will create the test cases that are specific to the application that you want to test.
+2 From the Project Explorer, right-click on the new project that you created, then select Properties > Java Build Path, and do the following: 
+    Click Add Library > JUnit then select JUnit3 to add JUnit support.
+    Click Add External JARs... and navigate to the SDK directory. Under the platforms directory, 
+    select the latest SDK version and add both the uiautomator.jar and android.jar files.
+    If you did not configure Eclipse as your development environment, make sure that the uiautomator.jar and 
+    android.jar files from the <android-sdk>/platforms/<sdk> directory are in your Java class path.
+3 http://developer.android.com/tools/testing/testing_ui.html
+
+Linux adb 识别小米手机2:
+mkdir ~/.android
+echo "0x2717" > ~/.android/adb_usb.ini
+
+
+

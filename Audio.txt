@@ -1,0 +1,25 @@
+".mp3"		pass
+".m4a"		pass		
+".ogg"		ogg		 
+".mid"		pass
+".smf"		no 
+".imy"		pass 
+".wma"		pass	
+".aac"		pass	
+".wav"		pass		 
+".amr"		pass		 
+".midi"		 
+".xmf"		 
+".rtttl"	Text Files 	 
+".rtx"		Text Files 
+".ota"		Raster Image Files
+".mka"		pass
+".flac"		pass	 
+".mxmf"		pass
+".qcp"		pass
+".awb"		pass		
+".ac3"		pass		
+".dts"		pass	
+".ec2"		
+".ape"		pass
+		
