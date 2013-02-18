@@ -243,4 +243,153 @@ mkdir ~/.android
 echo "0x2717" > ~/.android/adb_usb.ini
 
 
+ubuntu定时：crontab
+
+http://blog.csdn.net/physicsdandan/article/details/7328743
+
+最近几天折腾了一下crontab。现在就开始总结梳理一下。
+
+crontab的作用：定时自动让操作系统执指定的任务。
+
+一：crontab基本命令
+
+crontab  -e 　编辑该用户的crontab，当指定crontab  不存在时新建。
+
+crontab  -l 　列出该用户的crontab。
+
+crontab  -r 　删除该用户的crontab。
+
+crontab  -u <用户名称> 　指定要设定crontab的用户名称。
+
+crontab –v 显示上一次编辑的时间（只在某些操作系统上可用）
+
+二：crontab时间参数格式说明
+
+-----------------------------------------------------------------------
+
+英文 # m   h       dom    mon   dow   command
+
+中文分钟  小时  日期    月份   周       命令
+
+范围0-59   0-23 1-31   1-12   0-7    ……
+
+ps：周里的0或7都是代表星期天。
+
+----------------------------------------------------------
+
+时间格式中的特殊字符代表的意义
+
+1.『*』 匹配任意时间。（1 * * * * *  command 代表每月，每周，每日，每时的第一分钟都执行command）
+
+2.『,』  列举时间点。（1，2，3  * * * *  command 代表每月，每周，每日，每时的第1，2，3分钟执行command ）
+
+3.『-』  列举时间段。（ 1-4 * * * *  command 代表每月，每周，每日，每时的从第一分钟到第四分钟都执行command）
+
+4.『/n』 每隔n个单位间隔。（*/5 * * * *  command 代表每隔5分钟执行一次command。注意是*/5，不是/5）
+
+三：编辑crontab模式
+
+1.使用crontab -e 命令。这种是针对一般用户指定自己的命令。
+
+2.直接编辑/etc/crontab ，指定系统的例行性任务。
+
+四：示例
+
+root@ubuntu:~# crontab -e
+
+[html] view plaincopy
+
+      GNU nano 2.2.2        File: /tmp/crontab.zLc01Z/crontab                         
+      
+    # m h  dom mon dow   command  
+    #* */2 * * * php /var/www/nginx-default/sundries/battery_queue.php  
+    #* */2 * * * php /var/www/nginx-default/sundries/battery_push.php  
+    */1 * * * *  php /var/www/nginx-default/test/crontab.php  
+    */1 * * * *  echo "good">>/tmp/test.txt  
+
+echo执行结果：
+[plain] view plaincopy
+
+    root@ubuntu:~# cat /tmp/test.txt  
+    good  
+    good  
+    good  
+    good  
+
+crontab.php的执行结果：
+[plain] view plaincopy
+
+    root@ubuntu:~# cat /var/www/nginx-default/test/test.txt  
+    2012-03-06 23:59:01  
+    2012-03-07 00:00:01  
+
+crontab.php的源码：
+
+[plain] view plaincopy
+
+    #!/usr/bin/php -q  
+    <?php  
+    $file='/var/www/nginx-default/test/test.txt';   
+    //chmod($file,0777);  
+    file_put_contents($file,date('Y-m-d H:i:s')."\n",FILE_APPEND );  
+
+ps:一定要加上第一句，让crontab找到php解析器来解析php文件。
+
+五：crontab日志
+
+（centos默认情况下,crontab中执行的日志写在/var/log下
+#ls /var/log/cron*
+/var/log/cron /var/log/cron.1 /var/log/cron.2 /var/log/cron.3 /var/log/cron.4）
+
+crontab的日志默认是关闭的。但是我们还是需要检查crontab是否正确执行了没有，那么log将是我的指导师。
+因为crontab所有的错误和输出都会发送给使用用户的mail里去。在网上查了下，原来这个mail不是真正的email而是指/var/spool/mail，如果你是用的root来执行命令，那么就在/var/spool/mail/root下。但是我直接输出good的没发现送到root的mail里，所以有待验证。还有一种经过我验证过的方法是：1.找到/etc/rsyslog.d/50-default.conf文件；2.找到有#cron那行，去掉#；3.重启rsyslog
+[plain] view plaincopy
+
+    root@ubuntu:~# vi /etc/rsyslog.d/50-default.conf   
+
+[plain] view plaincopy
+
+    #  Default rules for rsyslog.  
+    #  
+    #                       For more information see rsyslog.conf(5) and /etc/rsyslog.conf  
+      
+    #  
+    # First some standard log files.  Log by facility.  
+    #  
+    auth,authpriv.*                 /var/log/auth.log  
+    *.*;auth,authpriv.none          -/var/log/syslog  
+    #cron.*                          /var/log/cron.log  
+    daemon.*                        -/var/log/daemon.log  
+    kern.*                          -/var/log/kern.log  
+    lpr.*                           -/var/log/lpr.log  
+    mail.*                          -/var/log/mail.log  
+    user.*                          -/var/log/user.log  
+      
+      
+    #  
+    # Logging for the mail system.  Split it up so that  
+    # it is easy to write scripts to parse these files.  
+    #  
+
+[plain] view plaincopy
+
+    root@ubuntu:~# /etc/init.d/rsyslog restart  
+
+查看cron日志文件
+
+[html] view plaincopy
+
+    root@ubuntu:~# cat /var/log/cron.log  
+    Mar  6 22:07:01 ubuntu CRON[5793]: (root) CMD (php /var/www/nginx-default/test/crontab.php)  
+    Mar  6 22:07:01 ubuntu CRON[5794]: (root) CMD (echo "good">>/tmp/test.txt)  
+    Mar  6 22:08:01 ubuntu CRON[5814]: (root) CMD (echo "good">>/tmp/test.txt)  
+    Mar  6 22:08:01 ubuntu CRON[5815]: (root) CMD (php /var/www/nginx-default/test/crontab.php)  
+    Mar  6 22:08:30 ubuntu cron[5827]: (CRON) DEATH (can't lock /var/run/crond.pid, otherpid may be 4414: Resource temporarily unavailable)  
+    Mar  6 22:09:01 ubuntu CRON[5843]: (root) CMD (php /var/www/nginx-default/test/crontab.php)  
+    Mar  6 22:09:01 ubuntu CRON[5844]: (root) CMD (echo "good">>/tmp/test.txt)  
+    Mar  6 22:09:01 ubuntu CRON[5845]: (root) CMD (  [ -x /usr/lib/php5/maxlifetime ] && [ -d /var/lib/php5 ] && find /var/lib/php5/ -type f -cmin +$(/usr/lib/php5/maxlifetime) -print0 | xargs -n 200 -r -0 rm)  
+
+这下就可以看到crontab到底执行了指令列表没有！ 
+
+
 
