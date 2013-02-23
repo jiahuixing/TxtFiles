@@ -1,1 +1,6 @@
-普通耳机在酷狗聆听流行音乐获得佳音体会：1、DSP_Doly.dll,指标：1.00,0.00,1.00,0.002、DSP_XFiSound.dll,指标：0.30,0.10,3.003、DSP_Bas***citer_CN.dll,指标：1200Hz,120Hz,60Hz,25dB,-92dB,-15dB4、DSP_ViPERHeadphone.dll,指标：虚拟化强度 中，均衡器 流行乐，音量 3.09dB遗憾之处：插件4(DSP_ViPERHeadphone.dll)虚拟化强度调到“最弱
+普通耳机在酷狗聆听流行音乐获得佳音体会：
+1、DSP_Doly.dll,指标：1.00,0.00,1.00,0.002、
+DSP_XFiSound.dll,指标：0.30,0.10,3.003、
+DSP_Bas***citer_CN.dll,指标：1200Hz,120Hz,60Hz,25dB,-92dB,-15dB
+4、DSP_ViPERHeadphone.dll,指标：虚拟化强度 中，均衡器 流行乐，音量 3.09dB
+遗憾之处：插件4(DSP_ViPERHeadphone.dll)虚拟化强度调到“最弱
