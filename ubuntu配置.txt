@@ -391,5 +391,67 @@ crontab的日志默认是关闭的。但是我们还是需要检查crontab是否
 
 这下就可以看到crontab到底执行了指令列表没有！ 
 
+Git:
+
+	http://wenku.baidu.com/view/0245a911c281e53a5802ff24.html
+	
+	http://wenku.baidu.com/view/6ee21505bed5b9f3f90f1cf8.html
+	
+	http://wenku.baidu.com/view/14331a0090c69ec3d5bb7591.html
+	
+	在Ubuntu下安装git的过程，一般系统没有安装zlib.h所以要自己安装
+
+　　首先下载git包:
+
+　　$ cd ~/tmp
+
+　　$ wget http://www.kernel.org/pub/software/scm/git/git-1.6.0.2.tar.gz
+
+　　解压:
+
+　　$ tar xvzf git-1.6.0.2.tar.gz
+
+　　Build它:
+
+　　$ cd git-1.6.0.2
+
+　　$ ./configure --prefix=/usr/bin
+
+　　$ make
+
+　　然后看见了错误 "zlib.h No such file or directory"
+
+　　zlib.h 包含在 zlibg1-dev中;
+
+　　openssl/rand.h 包含在 libssl-dev中，系统没装。OK, 安装~
+
+　　$ sudo apt-get install zlib1g-dev libssl-dev
+
+　　然后再跑make.
+
+　　$ make
+
+　　一般这里不会出错了，如果有可能
+
+　　又看见错误 "tclsh failed; using unoptimized loading"。
+
+　　$ sudo apt-get install build-essential tcl8.4 tk8.4 gettext
+
+　　成功~ 嗒嗒嗒~
+
+　　$ sudo make install
+
+　　运行成功后，check下git的版本
+
+　　$ git --version
+
+　　如有提示“程序“git”尚未安装。 您可以使用以下命令安装：
+
+　　sudo apt-get install git-core
+
+	------------------------------------
+	
+	
+
 
 
