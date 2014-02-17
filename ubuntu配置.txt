@@ -463,3 +463,32 @@ cd /mnt/hgfs
 3.ubuntu终端下运行 sudo apt-get install open-vm-dkms
 4.进入目录：/etc/init.d，把"sudo mount -t vmhgfs .host:/ /mnt/hgfs"写到open-vm-tools文件的最后一行（需要root权限，可以用命令：sudo vi open-vm-tools）。
 5.在当前目录：/etc/init.d/运行，"sudo ./open-vm-tools restart"，运行成功后你会在目录:/mnt/hgfs下面看到你共享的文件夹
+
+
+
+ 第一步：启动Ubuntu 12.04(其他版本的Ubuntu操作差不多)
+
+    1. 在VMware虚拟机界面，点VM->Install VMware Tools。之后，点击Ubuntu 窗口中主文件 按钮然后再左边会看见设备里有VMware tools文件夹，双击之，并且解压其中的压缩文件，把它拷贝到主文件夹
+    2. 打开Terminal终端，进入解压的文件夹中，输入以下命令：
+           a) sudo tar zxf VMwareTools-xxx.tar.gz (注：xxx为版本号)
+           b) cd /vmware-tools-distrib
+           c) sudo ./vmware-install.pl
+        安装过程中一直按enter即可，或者输入【】提示yes和no，直到安装完毕。
+    3. 查看结果：
+           lsmod | grep vmblock
+
+第二步：设置共享文件夹的目录
+        1. 将Ubuntu关机（power off），否则不能添加共享文件夹
+        2. 在VMware虚拟机窗口，选择VM->Settings->Options->Shared Folders
+        3. 点右边的Add，点Next->选择Win7共享目录的路径，然后点Next->选中Enable this share->Finish
+        4. 在VM->Settings->Options->Shared Folders窗口的右边，Folder sharing栏里选择Always enabled
+        5. 点 OK 确定退出
+
+但在这里还没有完成，一点要进行第三步才可以完成文件共享。
+
+第三步：在Ubuntu虚拟机下安装插件
+        1. 执行 sudo apt-get install open-vm-dkms (注：如果安装过，以后就不用执行这一行)
+        2. 执行 sudo mount -t vmhgfs .host:/ /mnt/hgfs
+        3. cd /mnt/hgfs
+
+至此就可以在/mnt/hgfs目录下看到Win7的共享文件夹目录。无论在linux还是在Win7下修改共享文件夹里的文件，都会在另一个系统同时修改。
