@@ -452,6 +452,14 @@ Git:
 	------------------------------------
 	
 	
+虚拟机共享：
 
+sudo apt-get install open-vm-dkms
+sudo mount -t vmhgfs .host:/ /mnt/hgfs
+cd /mnt/hgfs
 
-
+1.在虚拟机系统没有运行的情况下，点击虚拟机工具栏的VM->settings->options->Shared Folders,按照提示添加一个你要共享的windows下的文件夹。
+2.安装vmtools,vmtools安装成功后会看到目录/mnt/hgfs.如果没有该目录则可以手动建立
+3.ubuntu终端下运行 sudo apt-get install open-vm-dkms
+4.进入目录：/etc/init.d，把"sudo mount -t vmhgfs .host:/ /mnt/hgfs"写到open-vm-tools文件的最后一行（需要root权限，可以用命令：sudo vi open-vm-tools）。
+5.在当前目录：/etc/init.d/运行，"sudo ./open-vm-tools restart"，运行成功后你会在目录:/mnt/hgfs下面看到你共享的文件夹
