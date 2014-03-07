@@ -538,3 +538,10 @@ Help：
 	
 
 
+bash 自定义command：
+	添加文件.bash_aliases	
+	如添加命令：bugreport 则输入：alias bugreport='./bugreport/bugreport.sh'
+	或在.bashrc 中 添加命令：alias bugreport='./bugreport/bugreport.sh'
+	保存文件执行：
+	. .bashrc  . .bash_aliases
+	
