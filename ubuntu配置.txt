@@ -24,6 +24,17 @@ SDK:
 2解压缩，并更新
 				sudo apt-get install ia32-libs
                 cd ~/android-sdk-linux/tools 2 ./andirod
+				
+				ubuntu 13.10 ia32-libs不能安装处理办法
+				在ubuntu13.10下配置andorid开发环境时发现没有ia32-libs，模拟器不能运行。
+				原因是adb用到了ia32-libs库，但是却安装不了。
+
+				google了好久发现了个办法，记录下。
+
+				$sudo apt-get install libstdc++6 
+				$sudo apt-get install lib32stdc++6
+				
+				
 3配置环境变量
                 sudo gedit ~/.bashrc
                 #set path for android sdk tools
