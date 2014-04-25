@@ -560,3 +560,16 @@ bash 自定义command：
 	保存文件执行：
 	. .bashrc  . .bash_aliases
 	
+	
+	
+# ~/.bash_aliases: to store some user-defined command
+
+#alias bugreport
+alias bugreport='. ~/Python/flashPhone/bugreport.sh'
+
+#alias adb devices
+alias devices='. ~/Python/flashPhone/devices.sh'
+
+#alias root devices
+alias root_devices='. ~/Python/flashPhone/root_devices'	
+	
