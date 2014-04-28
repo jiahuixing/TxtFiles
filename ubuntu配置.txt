@@ -579,4 +579,46 @@ rules:
 70-android.rules
 
 SUBSYSTEM=="usb", ATTRS{idVendor}=="2717", ATTRS{idProduct}=="4108",MODE="0666"	
+
+
+
+
+http://blog.chinaunix.net/uid-25100840-id-271082.html
+VMware改变硬盘空间大小的方法
+ 
+   一直想把我ubuntu的虚拟机容量弄到大些，可是当我试着手工去设置setting的时候，发现那些设置项都是灰色的，也就是不能修改，郁闷了，就开始去网上搜了，呵呵。(实际上这时候我的ubuntu还在运行着的，所以不能改变setting里德memorry，后来我把linu强制关机了，就可以设置了，呵呵)
+　　
+　　在网上搜了半天，终于找到了一个可以改变磁盘大小的方法：
+　　1.使用vmware自带的硬盘调整工具vmware-vdiskmanager.exe改变虚拟盘的大小。这个工具就在vmware的安装目录下面，比如我的电脑的话：C:\Program Files\VMware\VMware Workstation  。需要在dos下使用，命令如下：
+　　-x : expand the disk to the specified capacity
+　　执行vmware-vdiskmanager -x 8Gb xxxx.vmdk，如果dos会用的话，就不用说了，如果不会用的话，晚上搜搜cd怎么用，首先，要cd定位到有这个可执行文件的目录下，才能使用上面的命令，并且，最后的xxxx.vmdk，是你安装虚拟机的后生成的文件（一定要加上路径和名字的全称，这样才能找到这个文件）
+ 
+ 
+   重新打开vmware你就可以发下，硬盘的容量已经改变成10G了
+
+可是，接下来的问题就又来了，你的重新设置的空间，在ubuntu中不能被识别，也就是说你的可用空间还是那么多，因为我在ubuntu中用apt-get install 来下载东西的时候，还是提示磁盘空间不足，再有就是，当我启动ubuntu的时候，竟然进不去界面（我用的是普通用户，后来使用root用户时才可以）
+  然后我就在百度上搜，可是都没有后续的解读。后来在qq上强制题问，一个好友才给我解释了一下，我才终于明白了，不过碰巧，我ubuntu上安装了一个软件：GParted(磁盘编辑软件)
+步骤：
+1。安装Gparted软件：
+sudo apt-get install Gparted
+2。安装完成后，打开系统－》系统管理中第一项，就是这个Gparedd，打开
+你会看到整个磁盘的空间分布，其中又一项，我的是：/dev/sda3(我本来是5.5G,后来扩展到3G，其中这16个G就是多出来的，没有挂载！)
+3。点击右键：选择格式化，如果你的是ext3的华，就选ext3，如果文件系统是ext4的话，就选ext4（如果格式化不了，就删除，在编辑）。确定后，对话框中会出现一个1个操作待进行。此时没有进行格式化，你应该点击上面的一个对号（注意了），开始格式化。。。
+4，格式化之后，这个分区就可以用了，呵呵
+5。如果想把这个分区挂在到home下自己的用户名下，如我的是gonglei，然后新建一个文件夹，我的是temp命令
+sudo mount /dev/sda3 /home/gonglei/temp
+6。这样就挂在成功了，查看是不是挂在成功：
+sudo df －h
+我上面显示的是：
+root@dev:/home/gonglei/temp# df -h
+文件系统            容量  已用 可用 已用% 挂载点
+/dev/sda1             5.5G  4.6G  663M  88% /
+none                  415M  260K  414M   1% /dev
+none                  419M   24K  419M   1% /dev/shm
+none                  419M  312K  418M   1% /var/run
+none                  419M     0  419M   0% /var/lock
+none                  419M     0  419M   0% /lib/init/rw
+/dev/sda3              17G  173M   16G   2% /home/gonglei/temp
+看到最后，多出来了一个是／dev／sd3 17G /home/gonglei/temp,成功了，呵呵
+就到这吧，也不知道，能用不，先些出来，呵呵
 	
