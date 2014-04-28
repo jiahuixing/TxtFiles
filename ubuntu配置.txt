@@ -35,8 +35,8 @@ SDK:
 
 				google了好久发现了个办法，记录下。
 
-				$sudo apt-get install libstdc++6 
-				$sudo apt-get install lib32stdc++6
+				sudo apt-get install libstdc++6
+				sudo apt-get install lib32stdc++6
 				
 				
 3配置环境变量
@@ -54,6 +54,18 @@ SDK:
 6Help
                 http://hi.baidu.com/juicewb/item/40d96b20b03b24132b0f1c90
 
+				
+Python:
+下载源代码
+                http://www.python.org/ftp/python/2.5.2/Python-2.5.2.tar.bz2
+安装
+                $ tar –jxvf Python-2.5.2.tar.bz2
+                $ cd Python-2.5.2
+                $ ./configure
+                $ make
+                $ sudo make install
+				
+				
 USB:
 1查看usb设备记录
                 lsusb
@@ -66,69 +78,6 @@ USB:
 6               sudo adb kill-server
 7               sudo adb devices
 
-Firefox:
-1Download
-                http://www.mozilla.org/en-US/firefox/all.html
-2Extract
-                cd ~/Downloads/
-                tar xjf firefox-17.0.tar.bz2
-                Move to /opt"sudo rm -r /opt/firefox
-                sudo mv firefox /opt/firefox17
-4Set up symbolic links
-                “Backup” the old Firefox launcher: sudo mv /usr/bin/firefox /usr/bin/firefox-old
-                Create a symbolic link pointing to the new Firefox version: sudo ln -s /opt/firefox17/firefox /usr/bin/firefox"
-
-
-Python:
-下载源代码
-                http://www.python.org/ftp/python/2.5.2/Python-2.5.2.tar.bz2
-安装
-                $ tar –jxvf Python-2.5.2.tar.bz2
-                $ cd Python-2.5.2
-                $ ./configure
-                $ make
-                $ sudo make install
-
-快捷方式：
-1.先在桌面上随便建一个空白文档，内容为：
-[Desktop Entry]
-Name=Eclipse
-Comment=Eclipse IDE
-Exec=/opt/eclipse/eclipse
-Icon=/opt/eclipse/icon.xpm
-Terminal=false
-Type=Application
-Categories=Application;Development;
-
-[Desktop Entry]
-Name=Sublime
-Comment=Sublime
-Exec=/home/jiahuixing/tools/"Sublime Text 2"/
-Icon=/home/jiahuixing/tools/"Sublime Text 2"/Icon/256x256
-Terminal=false
-Type=Application
-Categories=Application;Development;
-
-2.名字改为 name.desktop(name就是你想取的名字)
-3.然后右键属性就可以改图标和命令了，最好在权限里面也修改下允许执行，然后把这个文件放到你想放的地方，执行一下，在侧栏锁定，就ok了，既有图标，还可以执行！
-                $ cd <eclipse dir>
-                $ ln -sf $JRE_HOME jre
-目的是在eclipse安装目录下建立一个名称为jre的链接，将其指向java安装目录下的jre目录。
-
-Pydev:
-http://crazycrab.sinaapp.com/archives/198
-Pydev - http://pydev.org/updates/
-
-打开Eclipse，在工具栏上选择Help->Install New Software
-弹出的对话框中，我们点击“Add”按钮，弹出如图2所示的对话框。在对话框中，Name项我们随便填个名
-    例如pydev；在Location中我们填写http://www.fabioz.com/pydev/updates，最后点击“OK”。
-当Eclipse重新启动后，我们需要配置一下pydev插件，让其可以找到本地安装的python。我们选择window->Preferences
-在弹出的对话框的左侧，我们找到Pydev->Interpreter – Python，再在右侧的窗口上点击“New”按钮，在弹出的“Select Interpreter”
-对话框中配置好python的安装目录，选择“OK”。Eclipse会自动将python安装目录中的内容导入
-在一个pydev的空项目建立完毕了。但是在新建py文件前，我们需要在空项目里新建一个包，这里类似与java的创建包的过程。
-在“”中找到我们的项目，右键单击“src”文件夹，新建一个pydev包
-这样的话，在pydev包中会自动创建一个__init__.py文件，我们现在可以在里面写python代码了。写个简单点的，
-打印“Hello,Python!”（print “Hello,Python!”）
 
 SVN:
 $ sudo apt-get install subversion
@@ -584,6 +533,13 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="2717", ATTRS{idProduct}=="4108",MODE="0666"
 
 
 http://blog.chinaunix.net/uid-25100840-id-271082.html
+
+
+pexpect:
+download pexpect-2.3.tar.gz 
+ tar zxvf pexpect-2.3.tar.g 
+ cd pexpect-2.3 
+ python setup.py install  (do this as root)
 
 
 
